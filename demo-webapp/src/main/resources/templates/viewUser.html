@@ -1,0 +1,107 @@
+<html>
+
+	<head>
+		<meta charset="ISO-8859-1">
+		<link th:href="@{/css/style.css}"  rel="stylesheet" type="text/css" /> 
+	</head>
+	<body>
+		<div th:if="${disableField}">
+			<script type="text/javascript">
+			
+				window.onload = function disableAllFields(){
+					var form  = document.getElementById("saveOrUpdateUser");
+					var allElements = form.elements;
+					for (var i = 0, l = allElements.length; i < l; ++i) {
+					       allElements[i].disabled=true;
+					       if(allElements[i].type == 'submit'){
+					       	allElements[i].style.display = 'none';
+					       }
+					}
+				}
+			</script>
+		</div>
+		<h1>
+			<div th:if="${mode} == 'VIEW'"><span th:text="#{view.user}"></span></div>
+			<div th:if="${mode} == 'CREATE'"><span th:text="#{add.user}"></span></div>
+			<div th:if="${mode} == 'EDIT'"><span th:text="#{edit.user}"></span></div>
+		</h1>
+		<fieldset>
+			<form action="#"  th:action="@{/saveOrUpdateUser}" method="post" id="saveOrUpdateUser">
+				<table>
+					<tr><td colspan="2"><input type="hidden" th:field="${user.id}" id="user.id" /><td></tr>
+					<tr>
+						<td><label class="label"><span th:text="#{user.name}"></span> :</label></td>
+						<td><input type="text" th:field="${user.name}"/></td>
+					</tr>
+					<tr>
+						<td><label class="label"><span th:text="#{user.city}"></span> :</label></td>
+						<td><input type="text" th:field="${user.city}"/></td>
+					</tr>
+					<tr>
+						<td><label class="label"><span th:text="#{user.gender}"></span> :</label></td>
+						<td>
+							<span th:each="entry : ${genderMap}">
+								<input type="radio" th:field="${user.gender}" th:value="${entry.key}" />
+                    			<label th:text="${entry.value}"> </label>
+                    		</span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="label"><span th:text="#{user.country}"></span> :</label></td>
+						<td><select th:field="${user.country}">
+								<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}" />
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="label"><span th:text="#{user.about}"></span> :</label></td>
+						<td><textarea th:field="${user.aboutYou}" /></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td><input type="checkbox" th:field="${user.mailingList}" /> 
+							<label class="label"><span th:text="#{user.mailinglist}"></span> </label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" th:value="#{user.save}"/></td>
+					</tr>							
+				</table>
+				 
+			</form>
+		</fieldset>
+		<!-- 
+		<table border="1">
+			<thead>
+				<tr>
+					<th class="appTh" th:text="#{counter.column}"> </th> 
+					<th class="appTh" th:text="#{id}"> </th>
+					<th class="appTh" th:text="#{user.name.short}"> </th>
+					<th class="appTh" th:text="#{user.city.short}"> </th>	
+					<th> </th>	
+					<th> </th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr th:if="${users.empty}">
+                    <td colspan="7" th:text="#{no.user}"> </td>
+                </tr>
+                <tr class="appTr" th:each="user: ${users}">
+                	<td><span th:text="${user.id}" />  </td>
+                	<td><span th:text="${user.id}" />  </td>
+                	<td><span th:text="${user.name}" />  </td>
+                	<td><span th:text="${user.city}" />  </td>
+                	<td><a th:href="@{/viewUser(id=${user.id})}"><img th:src="@{/images/view_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/viewUpdateUser(id=${user.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/deleteUser(id=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
+                </tr>
+            </tbody>
+		</table>
+		-->
+		<br/>
+		<a th:href="@{/listUsers}" th:text="#{view.users}"> </a>
+		<a th:href="@{/}" th:text="#{index.page}"> </a> 
+	</body>
+
+</html>
