@@ -27,9 +27,9 @@
                 	<td><span th:text="${user.id}" />  </td>
                 	<td><span th:text="${user.name}" />  </td>
                 	<td><span th:text="${user.city}" />  </td>
-                	<td><a th:href="@{/viewUser(id=${user.id})}"><img th:src="@{/images/view_icon.jpg}" height="30" width="30" /></a></td>
-                	<td><a th:href="@{/viewUpdateUser(id=${user.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
-                	<td><a th:href="@{/deleteUser(id=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/viewUser/{id}(id=${user.id})}"><img th:src="@{/images/view_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/viewUpdateUser/{id}(id=${user.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/deleteUser/{id}(id=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
                 </tr>
             </tbody>
 		</table>

@@ -20,7 +20,7 @@ public class UserService {
         return userProxy.getUsers();
     }
 
-    public void deleteUser(final int id) {
+    public void deleteUser(final long id) {
     	userProxy.deleteUser(id);
     }
 
@@ -30,7 +30,7 @@ public class UserService {
         // Règle de gestion : Le nom de famille doit être mis en majuscule.
         user.setName(user.getName().toUpperCase());
 
-        if(user.getId() == null) {
+        if(user.getId() == 0) {
             // Si l'id est null, alors c'est un nouvel employé.
         	savedUser = userProxy.createUser(user);
         } else {

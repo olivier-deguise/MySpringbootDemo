@@ -87,7 +87,7 @@ public class UserRepository {
 		return response.getBody();
 	}
 	
-	public void deleteUser(int id) {
+	public void deleteUser(long id) {
 		String baseApiUrl = props.getApiUrl();
 		String deleteUserUrl = baseApiUrl + "/user/" + id;
 		
