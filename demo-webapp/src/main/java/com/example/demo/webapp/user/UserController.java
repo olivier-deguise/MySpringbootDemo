@@ -21,7 +21,7 @@ public class UserController {
 	@GetMapping("/")
 	public String home(Model model) {
 		
-		return "home";
+		return "home"; 
 	}
 
 }
