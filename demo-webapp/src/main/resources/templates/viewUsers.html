@@ -1,0 +1,41 @@
+<html>
+
+	<head>
+		<meta charset="ISO-8859-1">
+		<link th:href="@{/css/style.css}"  rel="stylesheet" type="text/css" /> 
+	</head>
+	<body>
+		<h1 th:text="#{all.users.list}">gg</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<th class="appTh" th:text="#{counter.column}"> </th> 
+					<th class="appTh" th:text="#{id}"> </th>
+					<th class="appTh" th:text="#{user.name.short}"> </th>
+					<th class="appTh" th:text="#{user.city.short}"> </th>	
+					<th> </th>	
+					<th> </th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr th:if="${users.empty}">
+                    <td colspan="7" th:text="#{no.user}"> </td>
+                </tr>
+                <tr class="appTr" th:each="user: ${users}">
+                	<td><span th:text="${user.id}" />  </td>
+                	<td><span th:text="${user.id}" />  </td>
+                	<td><span th:text="${user.name}" />  </td>
+                	<td><span th:text="${user.city}" />  </td>
+                	<td><a th:href="@{/viewUser(id=${user.id})}"><img th:src="@{/images/view_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/viewUpdateUser(id=${user.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
+                	<td><a th:href="@{/deleteUser(id=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
+                </tr>
+            </tbody>
+		</table>
+		<br/>
+		<a th:href="@{/viewAddUser}" th:text="#{add.user}"> </a>
+		<a th:href="@{/}" th:text="#{index.page}"> </a> 
+	</body>
+
+</html>
