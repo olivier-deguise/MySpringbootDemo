@@ -26,40 +26,40 @@
 			<div th:if="${mode} == 'EDIT'"><span th:text="#{edit.user}"></span></div>
 		</h1>
 		<fieldset>
-			<form action="#"  th:action="@{/saveOrUpdateUser}" method="post" id="saveOrUpdateUser">
+			<form action="#"  th:action="@{/saveOrUpdateUser}" method="post" id="saveOrUpdateUser" th:object="${user}">
 				<table>
-					<tr><td colspan="2"><input type="hidden" th:field="${user.id}" id="user.id" /><td></tr>
+					<tr><td colspan="2"><input type="hidden" th:field="*{id}" id="user.id" /><td></tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.name}"></span> :</label></td>
-						<td><input type="text" th:field="${user.name}"/></td>
+						<td><input type="text" th:field="*{name}"/></td>
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.city}"></span> :</label></td>
-						<td><input type="text" th:field="${user.city}"/></td>
+						<td><input type="text" th:field="*{city}"/></td>
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.gender}"></span> :</label></td>
 						<td>
 							<span th:each="entry : ${genderMap}">
-								<input type="radio" th:field="${user.gender}" th:value="${entry.key}" />
+								<input type="radio" th:field="*{gender}" th:value="${entry.key}" />
                     			<label th:text="${entry.value}"> </label>
                     		</span>
 						</td>
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.country}"></span> :</label></td>
-						<td><select th:field="${user.country}">
+						<td><select th:field="*{country}">
 								<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}" />
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.about}"></span> :</label></td>
-						<td><textarea th:field="${user.aboutYou}" /></td>
+						<td><textarea th:field="*{aboutYou}" /></td>
 					</tr>
 					<tr>
 						<td> </td>
-						<td><input type="checkbox" th:field="${user.mailingList}" /> 
+						<td><input type="checkbox" th:field="*{mailingList}" /> 
 							<label class="label"><span th:text="#{user.mailinglist}"></span> </label>
 						</td>
 					</tr>
