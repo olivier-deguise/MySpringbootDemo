@@ -12,18 +12,22 @@ import javax.persistence.Table;
 
 import com.example.demo.api.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
+
 
 @Data
 @Entity
 @Table(name="Invoice")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Invoice.class)
 public class Invoice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="invoiceID")
-	private Long id;
+	private Long id=0L;
 	
 	@Column(name="semester")
 	private String semester;

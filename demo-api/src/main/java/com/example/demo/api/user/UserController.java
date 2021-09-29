@@ -1,6 +1,5 @@
 package com.example.demo.api.user;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.api.invoice.Invoice;
 
 @RestController
 public class UserController {
@@ -47,6 +45,10 @@ public class UserController {
 	
 	@PutMapping("/user/{id}")
 	public User updateUser(@PathVariable("id") final Long id, @RequestBody User user) {
+		//String json = httpEntity.getBody();
+		userService.saveUser(user);
+		return user;
+		/*
 		Optional<User> u = userService.getUser(id);
 		if(u.isPresent()) {
 			User currentUser = u.get();
@@ -84,6 +86,7 @@ public class UserController {
 		} else {
 			return null;
 		}
+		*/
 	}	
 
 }

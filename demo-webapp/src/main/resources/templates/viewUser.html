@@ -20,6 +20,8 @@
 				}
 			</script>
 		</div>
+	
+		
 		<h1>
 			<div th:if="${mode} == 'VIEW'"><span th:text="#{view.user}"></span></div>
 			<div th:if="${mode} == 'CREATE'"><span th:text="#{add.user}"></span></div>
@@ -27,15 +29,29 @@
 		</h1>
 		<fieldset>
 			<form action="#"  th:action="@{/saveOrUpdateUser}" method="post" id="saveOrUpdateUser" th:object="${user}">
+				<input type="hidden" name="mode" th:value="${mode}" id="mode" />
+				<div th:if="${#fields.hasAnyErrors()}">
+		    		<ul class="errorMessage">
+		        		<li th:text="#{errors.existed}" />
+		    		</ul>
+				</div>	
 				<table>
 					<tr><td colspan="2"><input type="hidden" th:field="*{id}" id="user.id" /><td></tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.name}"></span> :</label></td>
-						<td><input type="text" th:field="*{name}"/></td>
+						<td><input type="text" th:field="*{name}"/>   </td><td>
+							<ul>
+        						<li th:each="err : ${#fields.errors('name')}" th:text="${err}" class="error" />
+    						</ul>
+    					</td> 
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.city}"></span> :</label></td>
-						<td><input type="text" th:field="*{city}"/></td>
+						<td><input type="text" th:field="*{city}"/></td><td>
+							<ul>
+        						<li th:each="err : ${#fields.errors('city')}" th:text="${err}" class="error" />
+    						</ul>
+    					</td> 
 					</tr>
 					<tr>
 						<td><label class="label"><span th:text="#{user.gender}"></span> :</label></td>
@@ -59,7 +75,7 @@
 					</tr>
 					<tr>
 						<td> </td>
-						<td><input type="checkbox" th:field="*{mailingList}" /> 
+						<td colspan="2"><input type="checkbox" th:field="*{mailingList}" /> 
 							<label class="label"><span th:text="#{user.mailinglist}"></span> </label>
 						</td>
 					</tr>
@@ -70,35 +86,47 @@
 				 
 			</form>
 		</fieldset>
-		<!-- 
-		<table border="1">
-			<thead>
-				<tr>
-					<th class="appTh" th:text="#{counter.column}"> </th> 
-					<th class="appTh" th:text="#{id}"> </th>
-					<th class="appTh" th:text="#{user.name.short}"> </th>
-					<th class="appTh" th:text="#{user.city.short}"> </th>	
-					<th> </th>	
-					<th> </th>
-					<th> </th>
-				</tr>
-			</thead>
-			<tbody>
-                <tr th:if="${users.empty}">
-                    <td colspan="7" th:text="#{no.user}"> </td>
-                </tr>
-                <tr class="appTr" th:each="user: ${users}">
-                	<td><span th:text="${user.id}" />  </td>
-                	<td><span th:text="${user.id}" />  </td>
-                	<td><span th:text="${user.name}" />  </td>
-                	<td><span th:text="${user.city}" />  </td>
-                	<td><a th:href="@{/viewUser(id=${user.id})}"><img th:src="@{/images/view_icon.jpg}" height="30" width="30" /></a></td>
-                	<td><a th:href="@{/viewUpdateUser(id=${user.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
-                	<td><a th:href="@{/deleteUser(id=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
-                </tr>
-            </tbody>
-		</table>
-		-->
+		
+		<br/>
+		<div th:if="${mode} == 'EDIT'">
+			<a th:href="@{/viewAddInvoice/{id}(id=${user.id})}" th:text="#{add.invoice}"> </a>
+		</div>
+		<div th:if="${(user.invoices != null && user.invoices.size != 0) || (modeInvoice != null && modeInvoice == 'CREATE')}">
+			<form action="#"  th:action="@{/saveOrUpdateInvoice}" method="post" id="saveOrUpdateInvoice" th:object="${invoice}">
+			<input type="hidden" name="userid" th:value="${user.id}" id="user.id.in.invoice" />
+			<table border="1">
+				<thead>
+					<tr>
+						<th class="appTh" th:text="#{id}"> </th>
+						<th class="appTh" th:text="#{invoice.semester}"> </th> 
+						<th class="appTh" th:text="#{invoice.amount}"> </th>
+						<th class="appTh" th:text="#{invoice.memo}"> </th>	
+						<th> </th>	
+						<th> </th>
+					</tr>
+					<tr class="appTr" th:each="invoice: ${user.invoices}" >
+						<td><span th:text="${invoice.id}" />  </td>
+                		<td><span th:text="${invoice.semester}" />  </td>
+                		<td><span th:text="${invoice.amount}" />  </td>
+                		<td><span th:text="${invoice.memo}" />  </td>
+                		<td><a th:href="@{/viewUpdateInvoice/{id}(id=${invoice.id})}"><img th:src="@{/images/modify_icon.jpg}" height="30" width="30" /></a></td>
+                		<td><a th:href="@{/deleteInvoice/{userid}/{id}(id=${invoice.id},userid=${user.id})}"><img th:src="@{/images/delete_icon.jpg}" height="30" width="30" /></a></td>
+					</tr>
+					<tr class="appTr" th:if="${modeInvoice != null && modeInvoice == 'CREATE'}">
+						<td><input type="text" size="3" disabled=disabled th:field="*{id}"/></td>
+						<td><input type="text" size="5" th:field="*{semester}"/></td>
+						<td><input type="text" size="6" th:field="*{amount}"/></td>
+						<td><input type="text" size="15" th:field="*{memo}"/></td>
+						<td><input type="image" th:src="@{/images/disk_icon.jpg}" height="30" width="30" /></td>
+						<td> </td>
+					</tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table>
+		</div>
+
 		<br/>
 		<a th:href="@{/listUsers}" th:text="#{view.users}"> </a>
 		<a th:href="@{/}" th:text="#{index.page}"> </a> 

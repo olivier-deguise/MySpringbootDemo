@@ -20,6 +20,11 @@ ul.actionMessage {
   display: inline-block;
 }
 
+.error {
+	color: red;
+	font-size: 14px;
+}
+
 span.errorMessage {
 	color: red;
 	font-size: 14px;
@@ -32,7 +37,7 @@ body {
 }
 
 form {
-  max-width: 700px;
+  max-width: 900px;
   padding: 10px 10px;
   background: #f4f7f8;
   border-radius: 8px;
@@ -94,3 +99,46 @@ th.appTh {
   background-color: #04AA6D;
   color: white;
 }
+
+ul.menuItem {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li.menuItem {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li.menuItem:last-child {
+  border-right: none;
+}
+
+li.menuItem a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li.menuItem a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+footer {
+	padding: 10px 20px;
+	background: #666;
+	color: white;
+}
+
+
+      
+      

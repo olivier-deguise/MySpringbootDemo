@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Système gestion des utilisateurs</title>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+</head>
+<body>
+	<header>
+		<h1>Système de gestion des utilisateurs</h1>
+	</header>
+	<ul class="menuItem">
+	  <li class="menuItem"><a class="active" href="#home">Home</a></li>
+	  <li class="menuItem"><a href="#news">News</a></li>
+	  <li class="menuItem"><a href="#contact">Contact</a></li>
+	  <li class="menuItem" style="float:right"><a href="#about">About</a></li>
+	</ul>	
+	<section layout:fragment="custom-content">
+	template
+		<p>Your page content goes here</p>
+	</section>
+	<footer>
+		<p>My custom footer</p>
+		<p layout:fragment="custom-footer">Your custom footer here</p>
+	</footer>
+</body>
+</html>

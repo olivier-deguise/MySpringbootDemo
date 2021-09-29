@@ -1,10 +1,14 @@
-<html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{template.html}">
 
 	<head>
 		<meta charset="ISO-8859-1">
+		<title>Visualiser les utilisateurs</title>
 		<link th:href="@{/css/style.css}"  rel="stylesheet" type="text/css" /> 
 	</head>
+	
 	<body>
+	<section layout:fragment="custom-content">
 		<h1 th:text="#{all.users.list}">gg</h1>
 		<table border="1">
 			<thead>
@@ -36,6 +40,7 @@
 		<br/>
 		<a th:href="@{/viewAddUser}" th:text="#{add.user}"> </a>
 		<a th:href="@{/}" th:text="#{index.page}"> </a> 
+	</section>	
 	</body>
 
 </html>
