@@ -1,10 +1,12 @@
-<html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template.html}" th:with="activeTab=${mode}">
 
 	<head>
-		<meta charset="ISO-8859-1">
-		<link th:href="@{/css/style.css}"  rel="stylesheet" type="text/css" /> 
+		<title  th:if="${mode} == 'VIEW'" th:text="#{view.user}" > </title>
+		<title  th:if="${mode} == 'CREATE'" th:text="#{add.user}" > </title>
+		<title  th:if="${mode} == 'EDIT'" th:text="#{edit.user}" > </title>
 	</head>
 	<body>
+	<section layout:fragment="custom-content">
 		<div th:if="${disableField}">
 			<script type="text/javascript">
 			
@@ -130,6 +132,7 @@
 		<br/>
 		<a th:href="@{/listUsers}" th:text="#{view.users}"> </a>
 		<a th:href="@{/}" th:text="#{index.page}"> </a> 
+	</section>
 	</body>
 
 </html>

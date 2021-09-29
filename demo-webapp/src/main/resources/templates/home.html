@@ -1,9 +1,11 @@
-<html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template.html}" th:with="activeTab='index'">
 	<body>
+	<section layout:fragment="custom-content">
 		<h2 th:text="#{welcome.message}"> </h2>
 		<ul>
 			<li><a th:href="@{/viewAddUser}" th:text="#{add.user}"> </a></li>
 			<li><a th:href="@{/listUsers}" th:text="#{view.users}"> </a></li>
 		</ul>
+	</section>
 	</body>
 </html>
