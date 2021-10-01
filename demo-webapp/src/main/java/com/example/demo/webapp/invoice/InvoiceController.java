@@ -3,6 +3,8 @@ package com.example.demo.webapp.invoice;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ public class InvoiceController {
 	@Autowired InvoiceService invoiceService;
 	@Autowired UserService userService;
 	
+	@RolesAllowed("ADMIN")
 	@PostMapping("/saveOrUpdateInvoice")
 	public String saveOrUpdateInvoice(@ModelAttribute Invoice invoice, @RequestParam("userid") String userId, Model model) {
 		User user = userService.getUser(Integer.valueOf(userId));
@@ -47,6 +50,7 @@ public class InvoiceController {
 		return "viewUser";
 	}
 	
+	@RolesAllowed("ADMIN")
 	@GetMapping("/deleteInvoice/{userid}/{id}")
 	public String deleteInvoice(@PathVariable("id") int id, @PathVariable("userid") int userId, Model model) {
 		User user = userService.getUser(userId);
@@ -75,6 +79,7 @@ public class InvoiceController {
 		return "viewUser";
 	}
 	
+	@RolesAllowed("ADMIN")
 	@GetMapping("/viewAddInvoice/{id}")
 	public String viewAddInvoice(@PathVariable("id") final int id, Model model) {
 		User user = userService.getUser(id);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="ISO-8859-1">
 		<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Système gestion des utilisateurs</title>
@@ -8,17 +9,20 @@
 	<body>
 		<header>
 			<h1>Système de gestion des utilisateurs</h1>
+			<span sec:authorize="isAuthenticated()">Bienvenue <span sec:authentication="name"></span> </span>
+			<span sec:authorize="isAuthenticated()" style="float: right"> <a href="#" th:href="@{/logout}" th:text="#{logout}"> </a> </span>
 		</header>
-		<ul class="navbar">
+		<ul class="navbar" sec:authorize="isAuthenticated()">
 		  <!-- <li class="navbar"><a class="active" href="#home">Home</a></li> -->
-		  <li class="navbar"><a th:classappend="${activeTab == 'index'} ? 'active'" th:href="@{/}" th:text="#{index.page}" href="#">Home</a></li>
-		  <li class="navbar"><a th:classappend="${activeTab == 'listUsers'} ? 'active'" th:href="@{/listUsers}" th:text="#{view.users}" href="#">Liste de tous les utilisateurs</a></li>
-		  <li class="navbar"><a th:classappend="${activeTab == 'CREATE'} ? 'active'" th:href="@{/viewAddUser}" th:text="#{add.user}" href="#">Créer un nouvel utilisateur</a></li>
+		  <li sec:authorize="isAuthenticated()" class="navbar"><a th:classappend="${activeTab == 'index'} ? 'active'" th:href="@{/}" th:text="#{index.page}" href="#">Home</a></li>
+		  <li sec:authorize="hasRole('ROLE_USER')" class="navbar"><a th:classappend="${activeTab == 'listUsers'} ? 'active'" th:href="@{/listUsers}" th:text="#{view.users}" href="#">Liste de tous les utilisateurs</a></li>
+		  <li sec:authorize="hasRole('ROLE_ADMIN')" class="navbar"><a th:classappend="${activeTab == 'CREATE'} ? 'active'" th:href="@{/viewAddUser}" th:text="#{add.user}" href="#">Créer un nouvel utilisateur</a></li>
 		  <span th:if="${activeTab == 'VIEW'}"><li class="navbar"><a class='active' th:text="#{view.user}" href="#"> </a></li> </span>
 		  <span th:if="${activeTab == 'EDIT'}"><li class="navbar"><a class='active' th:text="#{edit.user}" href="#"> </a></li> </span>
 		  
 		  <li class="navbar" style="float:right"><a href="#about">About</a></li>
-		</ul>	
+		</ul>
+		
 		<section layout:fragment="custom-content">
 		template
 			<p>Your page content goes here</p>

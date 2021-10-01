@@ -22,3 +22,16 @@ CREATE TABLE Invoice(
 	PRIMARY KEY (invoiceID),
 	FOREIGN KEY (userID) REFERENCES User(userID)
 );
+
+CREATE TABLE LoginUser(
+	username varchar(50) NOT NULL PRIMARY KEY,
+	password varchar (200) NOT NULL
+);
+
+CREATE Table Role(
+	username varchar(50) NOT NULL,
+	role varchar(50) NOT NULL,
+	FOREIGN KEY (username) REFERENCES LoginUser(username)
+);
+
+CREATE UNIQUE INDEX ix_role_username on Role(username,role);

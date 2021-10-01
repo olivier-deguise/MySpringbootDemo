@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserController {
 	
 	@Autowired UserService userService;
 	
+	@RolesAllowed("USER")
 	@GetMapping("/listUsers")
 	public String listUsers(Model model) {
 		Iterable<User> listUsers = userService.getUsers();
@@ -31,6 +33,7 @@ public class UserController {
 		return "viewUsers";
 	}
 	
+	@RolesAllowed("ADMIN")
 	@GetMapping("/viewUpdateUser/{id}")
 	public String viewUpdateUser(@PathVariable("id") final int id, Model model) {
 		User user = userService.getUser(id);
@@ -52,6 +55,7 @@ public class UserController {
 		return "viewUser";
 	}
 	
+	@RolesAllowed("USER")
 	@GetMapping("/viewUser/{id}")
 	public String viewUser(@PathVariable("id") final int id, Model model) {
 		User user = userService.getUser(id);
@@ -75,6 +79,7 @@ public class UserController {
 		return "viewUser";
 	}	
 	
+	@RolesAllowed("ADMIN")
 	@GetMapping("/viewAddUser")
 	public String viewAddUser(Model model) {
 		
@@ -96,6 +101,7 @@ public class UserController {
 		return "viewUser";
 	}
 	
+	@RolesAllowed("ADMIN")
 	@PostMapping("/saveOrUpdateUser")
 	public ModelAndView saveOrUpdateUser(@Valid User user, BindingResult result, Model model, @RequestParam("mode") String mode) {
 		if(userService.getUser(user.getId().intValue()) != null) {
@@ -125,16 +131,24 @@ public class UserController {
 		return new ModelAndView("redirect:/listUsers");
 	}
 	
+	@RolesAllowed("ADMIN")
 	@GetMapping("/deleteUser/{id}")
 	public ModelAndView deleteUser(@PathVariable("id") final Long id) {
 		userService.deleteUser(id);
 		return new ModelAndView("redirect:/listUsers");
 	}
 	
+	@RolesAllowed(value = {"USER","ADMIN"})
 	@GetMapping("/")
 	public String home(Model model) {
 		
 		return "home"; 
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		
+		return "login"; 
+	}	
 
 }
